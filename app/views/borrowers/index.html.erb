@@ -1,0 +1,21 @@
+<h1>Listing borrowers</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @borrowers.each do |borrower| %>
+  <tr>
+    <td><%= link_to 'Show', borrower %></td>
+    <td><%= link_to 'Edit', edit_borrower_path(borrower) %></td>
+    <td><%= link_to 'Destroy', borrower, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Borrower', new_borrower_path %>

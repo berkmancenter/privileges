@@ -1,0 +1,25 @@
+<% content_for :header do %>Flow Chart<% end %>
+<div class="nodes collection-list">	
+  <% unless @nodes.blank? %>
+	<h2>All Nodes</h2>
+	<p>
+	  <% @nodes.each do |node| %>
+	    <%= node.id %> - <%= node.text %>
+		<%= link_to('View', node_path(node)) %>
+		<% if current_user.try(:admin?) %>
+		  <%= link_to('Edit', edit_node_path(node)) %>
+		<% end %>
+		<br />
+	  <% end %>
+	</p>
+  <% else %>
+	<h2>No nodes yet.</h2>
+  <% end %>
+
+  <p>
+  <% if current_user.try(:admin?) %>
+	<%= link_to('New Node', new_node_path) %>
+  <% end %>
+  </p>
+</div>
+

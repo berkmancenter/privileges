@@ -1,0 +1,17 @@
+<%= form_for(@node_path) do |f| %>
+  <% if @node_path.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@node_path.errors.count, "error") %> prohibited this node_path from being saved:</h2>
+
+      <ul>
+      <% @node_path.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

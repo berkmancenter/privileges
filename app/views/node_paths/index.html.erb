@@ -1,0 +1,21 @@
+<h1>Listing node_paths</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @node_paths.each do |node_path| %>
+  <tr>
+    <td><%= link_to 'Show', node_path %></td>
+    <td><%= link_to 'Edit', edit_node_path_path(node_path) %></td>
+    <td><%= link_to 'Destroy', node_path, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Node path', new_node_path_path %>

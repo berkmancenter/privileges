@@ -1,0 +1,40 @@
+
+<div class="node show-object">
+  <% if @node.is_question? %>
+  	<p>
+	  <%= @node.text %>
+	  <ul>
+	    <% @node.choices.each do |choice| %>
+		  <% unless choice.choices.nil? %>	
+		    <li><%= link_to choice.text, choice %></li>
+		  <% else %>
+	        <li><%= choice.text %></li>
+	      <% end %>
+	    <% end %>
+	  </ul>
+	</p>
+  <% elsif @node.is_choice? && !@node.choices[0].choices.blank? %>
+    <p>
+	  <%= @node.text %><br /><br />
+	  <%= @node.choices[0].text %>
+	  <ul>
+	    <% @node.choices[0].choices.each do |choice| %>
+		  <% unless choice.choices.nil? %>	
+		    <li><%= link_to choice.text, choice %></li>
+		  <% else %>
+	        <li><%= choice.text %></li>
+	      <% end %>
+	    <% end %>
+	  </ul>
+	</p>	
+  <% else %>
+    <p>
+	  <%= @node.text %><br /><br />
+	  Answer: <br/>
+	  <%= @node.choices[0].text %>
+	<p>
+  <% end %>
+</div>
+<p>
+	<%= link_to "Exit and Return to Home", "/" %>
+</p>	
