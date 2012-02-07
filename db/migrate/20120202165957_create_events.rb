@@ -4,9 +4,13 @@ class CreateEvents < ActiveRecord::Migration
       t.references :user
       t.string :name
       t.text :description
-      t.datetime :start_date
-      t.datetime :end_date
+      t.date :start_date
+      t.date :end_date
       t.timestamps
+    end
+    
+    [:name, :user_id].each do|col|
+      add_index :events, col
     end
   end
 end

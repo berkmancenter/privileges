@@ -16,10 +16,17 @@ ActiveRecord::Schema.define(:version => 20120202170826) do
   create_table "borrowers", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
+    t.string   "middlename"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "event_id"
+    t.integer  "card_type_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
+
+  add_index "borrowers", ["email"], :name => "index_borrowers_on_email"
+  add_index "borrowers", ["firstname"], :name => "index_borrowers_on_firstname"
+  add_index "borrowers", ["lastname"], :name => "index_borrowers_on_lastname"
 
   create_table "choices_nodes", :id => false, :force => true do |t|
     t.integer "choice_id"
@@ -30,11 +37,14 @@ ActiveRecord::Schema.define(:version => 20120202170826) do
     t.integer  "user_id"
     t.string   "name"
     t.text     "description"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "events", ["name"], :name => "index_events_on_name"
+  add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "node_paths", :force => true do |t|
     t.text     "path"
@@ -50,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20120202170826) do
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
+
+  add_index "nodes", ["text"], :name => "index_nodes_on_text"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false

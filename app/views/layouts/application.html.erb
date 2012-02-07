@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag 'application' %>
   <!--[if IE 6]><%= stylesheet_link_tag 'ie6' %><![endif]-->
   <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", "jquery", "jquery-1.5.1.min", "jquery-ui-1.8.14.custom.min.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body <%= yield :body %>>
@@ -14,7 +14,7 @@
     <div id="utility">
       <% if user_signed_in? %>
         Signed in as <%= current_user.email %>. Not you?
-        <%= link_to "Sign out", destroy_user_session_path %> or <%= link_to "edit account", edit_user_registration_path(current_user) %>
+        <%= link_to "Sign out", destroy_user_session_url, :method => :delete %> or <%= link_to "edit account", edit_user_registration_path(current_user) %>
       <% else %>
 		<%= link_to "Sign In", new_user_session_path %>
 	  <% end %>
@@ -28,7 +28,20 @@
   </div>
 
   <div id="container">
-
+	<div id="user-dashboard">
+	   <h3>User Options</h3>
+		<ul>
+			<% if current_user.try(:admin?) %>
+			  <li><%= link_to "View All Nodes", nodes_path %></li>
+			  <li><%= link_to "View All Events", events_path %></li>
+			  <li><%= link_to "View All Borrowers", borrowers_path %></li>
+			<% elsif user_signed_in? %>
+			  <li><%= link_to "View Your Events", events_path %></li>
+			<% else %>
+			  <li><%= link_to "Begin Privileges Form", nodes_path %></li>
+			<% end %>
+		</ul>
+	</div>
 	  
     <h1 id="content-header">
       <% if content_for? :header %>

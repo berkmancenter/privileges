@@ -1,5 +1,43 @@
-<p id="notice"><%= notice %></p>
+<% content_for :header do %><%= @event.name %><% end %>
+<p>
+  Description: <%= @event.description %><br /><br />
+  Event Admin: <%= @event.is_admin?(current_user) ? "You" : @event.user.email %><br />
+  Start Date: <%= @event.start_date.strftime("%m/%d/%Y") %><br />
+  End Date: <%= @event.end_date.strftime("%m/%d/%Y") %>
+</p>
 
+<p>
+	<% if current_user.try(:admin?) %>
+	  <%= link_to('Edit Event', edit_event_path(@event)) %>
+	  <%= link_to 'Destroy Event', @event, confirm: 'Are you sure?', method: :delete %>
+	<% end %>
+</p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<% if @event.is_admin?(current_user) || current_user.try(:admin?) %>
+<div class="asset_upload">
+  <h2>Borrower Upload via CSV</h2>	
+
+    <p>
+      Use the form below to import borrowers via a CSV (comma separated value) file. All 4 fields (columns in excel) must be present even if they are left blank.
+      Do not use column headings or quotes around text in any field. Each row will be separated by a new line or carriage return.
+    </p>
+    <p>
+      These are the fields to be populated:
+	  <ul>
+		<li>firstname</li>
+		<li>middlename</li>
+		<li>lastname</li>
+		<li>email</li>
+	  </ul>
+    </p>
+    <p>
+	  e.g. firstname, middlename, lastname, email
+    </p>
+
+  <%= form_tag import_borrowers_path, :multipart => true do -%>
+    <%= file_field 'upload', 'datafile' %></p>
+	<%= hidden_field_tag :event_id, @event.id %>
+	<%= submit_tag "Upload", :disable_with => 'Uploading...' %>
+  <% end -%>
+</div>	
+<% end %>

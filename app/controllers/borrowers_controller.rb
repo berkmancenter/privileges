@@ -1,3 +1,4 @@
+require 'csv'
 class BorrowersController < ApplicationController
   # GET /borrowers
   # GET /borrowers.json
@@ -79,5 +80,23 @@ class BorrowersController < ApplicationController
       format.html { redirect_to borrowers_url }
       format.json { head :no_content }
     end
+  end
+  
+  def import
+    @file = params[:upload][:datafile] unless params[:upload].blank?
+    event = params[:event_id]
+    CSV.parse(@file.read).each do |cell|
+        borrower={}
+        borrower[:event_id] = event
+        borrower[:firstname] = cell[0]
+        borrower[:middlename] = cell[1]
+        borrower[:lastname] = cell[2]
+        borrower[:email] = cell[3]
+        
+        @borrower = Borrower.new
+        @borrower.attributes = borrower
+        @borrower.save
+    end
+    redirect_to event_url(event)
   end
 end

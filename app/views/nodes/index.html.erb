@@ -8,6 +8,7 @@
 		<%= link_to('View', node_path(node)) %>
 		<% if current_user.try(:admin?) %>
 		  <%= link_to('Edit', edit_node_path(node)) %>
+		  <%= link_to 'Destroy', node, confirm: 'Are you sure?', method: :delete %>
 		<% end %>
 		<br />
 	  <% end %>

@@ -1,7 +1,7 @@
 <%= semantic_form_for(@node) do |f| %>
     <%= f.inputs do %>
-      <%= f.input :text, :label => "Question Text" %>
-	  <%= f.input :first, :label => "Is this the first question?" %>
+      <%= f.input :text, :label => "Question Text: ", :input_html => {:rows => 3, :cols => 30} %>
+	  <%= f.input :first, :label => " Is this the first question?" %>
 	<% end %>
 	
     <%= label_tag "Choices" %>

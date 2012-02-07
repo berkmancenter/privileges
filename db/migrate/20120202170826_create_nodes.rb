@@ -11,9 +11,6 @@ class CreateNodes < ActiveRecord::Migration
       t.references :node
     end
     
-    def self.down
-      drop_table :nodes
-      drop_table :choices_nodes
-    end
+    add_index :nodes, :text
   end
 end

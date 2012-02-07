@@ -1,7 +1,11 @@
 Privileges::Application.routes.draw do
   resources :node_paths
 
-  resources :borrowers
+  resources :borrowers do
+    collection do
+      post 'import'
+    end
+  end  
 
   resources :events
 
@@ -58,7 +62,7 @@ Privileges::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "nodes#index"
+  root :to => "home#home"
 
   # See how all your routes lay out with "rake routes"
 

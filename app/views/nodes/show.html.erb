@@ -28,13 +28,19 @@
 	  </ul>
 	</p>	
   <% else %>
-    <p>
+	<p>
 	  <%= @node.text %><br /><br />
-	  Answer: <br/>
-	  <%= @node.choices[0].text %>
+	  <% unless @node.choices.nil? || @node.choices.empty? %>
+	    Answer: <br/>
+	    <%= @node.choices[0].text %>
+	  <% end %>
 	<p>
   <% end %>
 </div>
 <p>
-	<%= link_to "Exit and Return to Home", "/" %>
+	<% if current_user.try(:admin?) %>
+	  <%= link_to "View All Nodes", nodes_path %>
+	<% else %>
+	  <%= link_to "Exit and Return to Home", "/" %>
+	<% end %>
 </p>	

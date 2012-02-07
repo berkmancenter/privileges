@@ -1,21 +1,25 @@
-<h1>Listing events</h1>
+<% content_for :header do %>Events<% end %>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="nodes collection-list">	
+  <% unless @events.blank? %>
+	<p>
+	  <% @events.each do |event| %>
+	    <%= event.name %>
+		<%= link_to('View', event_path(event)) %>
+		<% if current_user.try(:admin?) %>
+		  <%= link_to('Edit', edit_event_path(event)) %>
+		  <%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %>
+		<% end %>
+		<br />
+	  <% end %>
+	</p>
+  <% else %>
+	<h2>No events yet.</h2>
+  <% end %>
 
-<% @events.each do |event| %>
-  <tr>
-    <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Event', new_event_path %>
+  <p>
+  <% if current_user.try(:admin?) %>
+	<%= link_to('New Event', new_event_path) %>
+  <% end %>
+  </p>
+</div>

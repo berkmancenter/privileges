@@ -44,7 +44,7 @@ class NodesController < ApplicationController
 
     respond_to do |format|
       if @node.save
-        format.html { redirect_to @node, notice: 'Node was successfully created.' }
+        format.html { redirect_to nodes_url, notice: 'Node was successfully created.' }
         format.json { render json: @node, status: :created, location: @node }
       else
         format.html { render action: "new" }

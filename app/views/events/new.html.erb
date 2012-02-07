@@ -1,5 +1,7 @@
-<h1>New event</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', events_path %>
+<% content_for :header do %>New Event<% end %>
+<div class="nodes collection-list">	
+  <%= render :partial => 'form' %>
+  <p>
+	<%= link_to 'Back', events_path %>
+  </p>	
+</div>
