@@ -1,0 +1,24 @@
+<% content_for :header do %>Borrower Card Types<% end %>
+<div class="card_types collection-list">	
+	<% if @card_types.nil? || @card_types.empty? %>
+	  <p>There are no borrower card types yet.</p>
+	<% else %>
+      <table>
+	  <tr>
+	    <th>Name</th>
+	    <th>Actions</th>
+	  </tr>
+	    <% @card_types.each do |card_type| %>
+		  <tr>
+			<td><%= card_type.name %></td>
+			<td><%= link_to 'Edit', edit_card_type_path(card_type) %> | <%= link_to 'Destroy', card_type, confirm: 'Are you sure?', method: :delete %></td>
+		  </tr>
+		<% end %>
+	  </table>
+	<% end %>
+  <p>
+  <% if current_user.admin? %>
+	<%= link_to 'New Card type', new_card_type_path %>
+  <% end %>
+  </p>
+</div>

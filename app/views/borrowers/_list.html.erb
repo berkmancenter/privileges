@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>First</th>
+    <th>Middle</th>
+    <th>Last</th>
+	<th>Email</th>
+	<th>Card Type</th>
+	<th>Actions</th>
+  </tr>
+
+<% borrowers.each do |borrower| %>
+  <tr>
+    <td><%= borrower.firstname %></td>
+    <td><%= borrower.middlename %></td>
+    <td><%= borrower.lastname %></td>
+    <td><%= borrower.email %></td>
+	<td><%= borrower.card_type_id %></td>
+	<td><%= link_to 'Edit', edit_borrower_path(borrower) %> | <%= link_to 'Destroy', borrower, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
