@@ -22,5 +22,30 @@
 	<%= link_to('New Node', new_node_path) %>
   <% end %>
   </p>
-</div>
+</div>		
+
+<% if current_user.try(:admin?) %>
+  <h2 class="collapsable node_upload">Node Upload via CSV</h2>
+  <div class="node_upload node_upload-target">
+    <p>
+      Use the form below to import nodes via a CSV (comma separated value) file. All 4 fields (columns in excel) must be present even if they are left blank.
+      Do not use column headings or quotes around text in any field. Each row will be separated by a new line or carriage return.
+    </p>
+    <p>
+      These are the fields to be populated:
+	  <ul>
+		<li>node</li>
+	  </ul>
+    </p>
+    <p>
+	  e.g. node
+    </p>
+
+    <%= form_tag import_nodes_path, :multipart => true do -%>
+      <%= file_field 'upload', 'datafile' %></p>
+	  <%= hidden_field_tag :event_id, @event.id %>
+	  <%= submit_tag "Upload CSV", :disable_with => 'Uploading...' %>
+    <% end -%>
+  </div>	
+<% end %>
 

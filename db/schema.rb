@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20120215203125) do
     t.string   "lastname"
     t.string   "middlename"
     t.string   "email"
+    t.string   "phone"
+    t.date     "dob"
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "event_id"

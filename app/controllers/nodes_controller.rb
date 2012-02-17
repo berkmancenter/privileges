@@ -81,4 +81,20 @@ class NodesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def import
+    unless params[:upload].blank?
+      @file = params[:upload][:datafile]
+      CSV.parse(@file.read).each do |cell|
+          node={}
+          node[:text] = cell[0]
+        
+          @node = Node.new
+          @node.attributes = node
+          @node.save
+      end
+      redirect_to nodes_url
+    else
+      redirect_to nodes_url, notice: 'No File Chosen'
+  end
 end

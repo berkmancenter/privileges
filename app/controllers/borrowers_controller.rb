@@ -109,20 +109,27 @@ class BorrowersController < ApplicationController
   end
   
   def import
-    @file = params[:upload][:datafile] unless params[:upload].blank?
     event = params[:event_id]
-    CSV.parse(@file.read).each do |cell|
-        borrower={}
-        borrower[:event_id] = event
-        borrower[:firstname] = cell[0]
-        borrower[:middlename] = cell[1]
-        borrower[:lastname] = cell[2]
-        borrower[:email] = cell[3]
+    unless params[:upload].blank?
+      @file = params[:upload][:datafile]
+      CSV.parse(@file.read).each do |cell|
+          borrower={}
+          borrower[:event_id] = event
+          borrower[:firstname] = cell[0]
+          borrower[:middlename] = cell[1]
+          borrower[:lastname] = cell[2]
+          borrower[:email] = cell[3]
+          borrower[:phone] = cell[4]
+          borrower[:start_date] = cell[5]
+          borrower[:end_date] = cell[6]
         
-        @borrower = Borrower.new
-        @borrower.attributes = borrower
-        @borrower.save
-    end
-    redirect_to event_url(event)
+          @borrower = Borrower.new
+          @borrower.attributes = borrower
+          @borrower.save
+      end
+      redirect_to event_url(event)
+    else
+      redirect_to event_url(event), notice: 'No File Chosen'
+    end    
   end
 end

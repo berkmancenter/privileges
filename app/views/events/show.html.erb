@@ -14,7 +14,7 @@
 	<% end %>
 </p>
 
-<h2 class="collapsable borrower_list">Borrowers</h2>
+<h2 class="collapsable borrower_list">Attendees</h2>
 <div class="borrower_list borrower_list-target">
 	<%= render :partial => "borrowers/list", :locals => { :borrowers => @event.borrowers } %>
 	<br />
@@ -24,10 +24,10 @@
 </div>		
 
 <% if @event.is_admin?(current_user) || current_user.admin? %>
-  <h2 class="collapsable borrower_upload">Borrower Upload via CSV</h2>
-  <div class="borrower_upload borrower_upload-target">
+  <h2 class="collapsable attendee_upload">Attendee Upload via CSV</h2>
+  <div class="attendee_upload attendee_upload-target">
     <p>
-      Use the form below to import borrowers via a CSV (comma separated value) file. All 4 fields (columns in excel) must be present even if they are left blank.
+      Use the form below to import attendees via a CSV (comma separated value) file. All 5 fields (columns in excel) must be present even if they are left blank.
       Do not use column headings or quotes around text in any field. Each row will be separated by a new line or carriage return.
     </p>
     <p>
@@ -37,10 +37,11 @@
 		<li>middlename</li>
 		<li>lastname</li>
 		<li>email</li>
+		<li>phone</li>
 	  </ul>
     </p>
     <p>
-	  e.g. firstname, middlename, lastname, email
+	  e.g. firstname, middlename, lastname, email, phone
     </p>
 
     <%= form_tag import_borrowers_path, :multipart => true do -%>

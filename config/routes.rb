@@ -1,4 +1,6 @@
 Privileges::Application.routes.draw do
+  resources :attendees
+
   resources :card_types
 
   resources :node_paths

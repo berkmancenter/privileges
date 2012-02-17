@@ -28,6 +28,12 @@ namespace :privileges do
       user3.save
     end
     
+    task :default_event => :environment do
+      user = User.find_by_email('admin@example.com')
+      event = Event.new(:user => user, :name => 'Privileges', :start_date => '2012-02-15', :end_date => '2012-12-31')
+      event.save
+    end
+    
     desc "run all tasks in bootstrap"
     task :run_all => [:default_admin, :test_users] do
       puts "Done!"

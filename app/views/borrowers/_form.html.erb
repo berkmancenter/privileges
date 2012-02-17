@@ -4,6 +4,8 @@
 	  <%= f.input :middlename, :label => "Middle Name " %>
 	  <%= f.input :lastname, :label => "Last Name " %>
 	  <%= f.input :email, :label => "Email " %>
+	  <%= f.input :phone, :label => "Phone " %>
+	  <%= f.input :dob, :label => "Date of Birth ", :start_year => Time.now.year, :end_year => Time.now.year - 100 %>
 	  <%= f.input :start_date, :label => "Start Date ", :as => :string, :value => @borrower.start_date %><br />
 	  <%= f.input :end_date, :label => "End Date ", :as => :string, :value => @borrower.end_date %>
 	  <%= f.input :event_id, :as => :hidden, :value => @event.id %>

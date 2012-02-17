@@ -5,6 +5,8 @@ class CreateBorrowers < ActiveRecord::Migration
       t.string :lastname
       t.string :middlename
       t.string :email
+      t.string :phone
+      t.date :dob
       t.date :start_date
       t.date :end_date      
       t.references :event
