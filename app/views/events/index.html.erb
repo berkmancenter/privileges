@@ -18,7 +18,7 @@
   <% end %>
 
   <p>
-  <% if current_user.try(:admin?) %>
+  <% if current_user.admin? %>
 	<%= link_to('New Event', new_event_path) %>
   <% end %>
   </p>

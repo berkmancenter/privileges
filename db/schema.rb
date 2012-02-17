@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202170826) do
+ActiveRecord::Schema.define(:version => 20120215203125) do
 
   create_table "borrowers", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
     t.string   "middlename"
     t.string   "email"
+    t.date     "start_date"
+    t.date     "end_date"
     t.integer  "event_id"
     t.integer  "card_type_id"
     t.datetime "created_at",   :null => false
@@ -27,6 +29,12 @@ ActiveRecord::Schema.define(:version => 20120202170826) do
   add_index "borrowers", ["email"], :name => "index_borrowers_on_email"
   add_index "borrowers", ["firstname"], :name => "index_borrowers_on_firstname"
   add_index "borrowers", ["lastname"], :name => "index_borrowers_on_lastname"
+
+  create_table "card_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "choices_nodes", :id => false, :force => true do |t|
     t.integer "choice_id"

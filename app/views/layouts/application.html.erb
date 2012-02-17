@@ -34,7 +34,8 @@
 			<% if current_user.try(:admin?) %>
 			  <li><%= link_to "View All Nodes", nodes_path %></li>
 			  <li><%= link_to "View All Events", events_path %></li>
-			  <li><%= link_to "View All Borrowers", borrowers_path %></li>
+			  <li><%= link_to "View All General Borrowers", borrowers_path %></li>
+			  <li><%= link_to "View All Borrower Card Types", card_types_path %></li>
 			<% elsif user_signed_in? %>
 			  <li><%= link_to "View Your Events", events_path %></li>
 			<% else %>

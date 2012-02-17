@@ -1,29 +1,15 @@
-<% content_for :header do %>Borrowers<% end %>
+<% content_for :header do %>General Borrowers<% end %>
 <div class="nodes collection-list">	
-<table>
-  <tr>
-    <th>First Name</th>
-    <th>Middle Name</th>
-    <th>Last Name</th>
-	<th>Email</th>
-	<th>Card Type</th>
-	<th>Actions</th>
-  </tr>
-
-<% @borrowers.each do |borrower| %>
-  <tr>
-    <td><%= borrower.firstname %></td>
-    <td><%= borrower.middlename %></td>
-    <td><%= borrower.lastname %></td>
-    <td><%= borrower.email %></td>
-	<td><%= borrower.card_type_id %></td>
-	<td><%= link_to 'Show', borrower %> | <%= link_to 'Edit', edit_borrower_path(borrower) %> | <%= link_to 'Destroy', borrower, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+	<% if @general_event.nil? %>
+	  <p>The general event for all borrowers has not been created yet.</p>
+	<% elsif @borrowers.nil? || @borrowers.empty? %>
+	  <p>There are no borrowers yet.</p>
+	<% else %>
+      <%= render :partial => "list", :locals => { :borrowers => @borrowers } %>
+	<% end %>
   <p>
-  <% if current_user.try(:admin?) %>
-	<%= link_to 'New Borrower', new_borrower_path %>
+  <% if current_user.admin? %>
+	<%= link_to 'New Borrower', new_borrower_path(:event_id => @general_event.id) %>
   <% end %>
   </p>
 </div>

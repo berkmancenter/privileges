@@ -1,17 +1,22 @@
-<%= form_for(@borrower) do |f| %>
-  <% if @borrower.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@borrower.errors.count, "error") %> prohibited this borrower from being saved:</h2>
-
-      <ul>
-      <% @borrower.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= semantic_form_for(@borrower) do |f| %>
+    <%= f.inputs do %>
+	  <%= f.input :firstname, :label => "First Name " %>
+	  <%= f.input :middlename, :label => "Middle Name " %>
+	  <%= f.input :lastname, :label => "Last Name " %>
+	  <%= f.input :email, :label => "Email " %>
+	  <%= f.input :start_date, :label => "Start Date ", :as => :string, :value => @borrower.start_date %><br />
+	  <%= f.input :end_date, :label => "End Date ", :as => :string, :value => @borrower.end_date %>
+	  <%= f.input :event_id, :as => :hidden, :value => @event.id %>
+	  <%= f.input :card_type, :label => "Card Type " %>
+	<% end %>
+	
+	<%= f.buttons %>
 <% end %>
+
+
+<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function(){
+		jQuery("#borrower_start_date").datepicker({ minDate: 0 });
+		jQuery("#borrower_end_date").datepicker({ minDate: 0 });
+	})
+</script>
