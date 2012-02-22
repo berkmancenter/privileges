@@ -1,5 +1,9 @@
 Privileges::Application.routes.draw do
-  resources :attendees
+  resources :attendees do
+    collection do
+      post 'import'
+    end
+  end  
 
   resources :card_types
 
@@ -13,7 +17,11 @@ Privileges::Application.routes.draw do
 
   resources :events
 
-  resources :nodes
+  resources :nodes do
+    collection do
+      post 'import'
+    end
+  end
 
   devise_for :users
 

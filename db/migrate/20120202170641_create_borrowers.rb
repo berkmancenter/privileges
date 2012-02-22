@@ -8,7 +8,8 @@ class CreateBorrowers < ActiveRecord::Migration
       t.string :phone
       t.date :dob
       t.date :start_date
-      t.date :end_date      
+      t.date :end_date
+      t.boolean :verified, :default => false      
       t.references :event
       t.references :card_type
       t.timestamps

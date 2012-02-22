@@ -7,6 +7,7 @@
 	<th>Phone</th>
 	<th>Date of Birth</th>
 	<th>Card Type</th>
+	<th>Verified</th>
 	<th>Actions</th>
   </tr>
 
@@ -19,6 +20,7 @@
 	<td><%= borrower.phone %></td>
 	<td><%= borrower.dob %></td>
 	<td><%= borrower.card_type.nil? ? "None" : borrower.card_type.name %></td>
+	<td><%= borrower.verified ? "Yes" : "No" %></td>
 	<td><%= link_to 'Edit', edit_borrower_path(borrower) %> | <%= link_to 'Destroy', borrower, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

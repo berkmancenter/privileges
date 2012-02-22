@@ -6,13 +6,19 @@
 	  <%= f.input :email, :label => "Email " %>
 	  <%= f.input :phone, :label => "Phone " %>
 	  <%= f.input :dob, :label => "Date of Birth ", :start_year => Time.now.year, :end_year => Time.now.year - 100 %>
-	  <%= f.input :start_date, :label => "Start Date ", :as => :string, :value => @borrower.start_date %><br />
+	  <%= f.input :start_date, :label => "Start Date ", :as => :string, :value => @borrower.start_date %>
 	  <%= f.input :end_date, :label => "End Date ", :as => :string, :value => @borrower.end_date %>
-	  <%= f.input :event_id, :as => :hidden, :value => @event.id %>
-	  <%= f.input :card_type, :label => "Card Type " %>
+	  <% unless @event.nil? %>
+	    <%= f.input :event_id, :as => :hidden, :value => @event.id %>
+	  <% end %>
+	  <% if current_user.try(:admin?) %>
+	    <%= f.input :card_type, :label => "Card Type " %>
+		<%= f.input :verified, :label => " This borrower has been verified." %>
+	  <% end %>
 	<% end %>
-	
-	<%= f.buttons %>
+	<%= f.buttons do %>
+	  <%= f.commit_button :label => "Submit Form" %>
+	<% end %>
 <% end %>
 
 

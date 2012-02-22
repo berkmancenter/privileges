@@ -1,8 +1,9 @@
 class NodesController < ApplicationController
-  # GET /nodes
-  # GET /nodes.json
+  before_filter :authenticate_admin!, :except => [:index, :show]
+  
   def index
     @nodes = Node.all
+    @firsts = Node.find(:all, :conditions => {:first => true})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +11,6 @@ class NodesController < ApplicationController
     end
   end
 
-  # GET /nodes/1
-  # GET /nodes/1.json
   def show
     @node = Node.find(params[:id])
 
@@ -21,8 +20,6 @@ class NodesController < ApplicationController
     end
   end
 
-  # GET /nodes/new
-  # GET /nodes/new.json
   def new
     @node = Node.new
 
@@ -32,13 +29,10 @@ class NodesController < ApplicationController
     end
   end
 
-  # GET /nodes/1/edit
   def edit
     @node = Node.find(params[:id])
   end
 
-  # POST /nodes
-  # POST /nodes.json
   def create
     @node = Node.new(params[:node])
 
@@ -53,8 +47,6 @@ class NodesController < ApplicationController
     end
   end
 
-  # PUT /nodes/1
-  # PUT /nodes/1.json
   def update
     @node = Node.find(params[:id])
 
@@ -69,8 +61,6 @@ class NodesController < ApplicationController
     end
   end
 
-  # DELETE /nodes/1
-  # DELETE /nodes/1.json
   def destroy
     @node = Node.find(params[:id])
     @node.destroy
@@ -96,5 +86,7 @@ class NodesController < ApplicationController
       redirect_to nodes_url
     else
       redirect_to nodes_url, notice: 'No File Chosen'
+    end  
   end
+  
 end

@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   belongs_to :user
   has_many :borrowers
+  has_many :attendees
   
   validates_presence_of :name, :start_date, :end_date, :user_id
   validates_uniqueness_of :name
@@ -11,5 +12,5 @@ class Event < ActiveRecord::Base
   
   def is_general?
     self.name == "Privileges"
-  end  
+  end   
 end

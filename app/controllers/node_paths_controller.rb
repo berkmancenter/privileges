@@ -1,6 +1,5 @@
 class NodePathsController < ApplicationController
-  # GET /node_paths
-  # GET /node_paths.json
+
   def index
     @node_paths = NodePath.all
 
@@ -10,8 +9,6 @@ class NodePathsController < ApplicationController
     end
   end
 
-  # GET /node_paths/1
-  # GET /node_paths/1.json
   def show
     @node_path = NodePath.find(params[:id])
 
@@ -21,8 +18,6 @@ class NodePathsController < ApplicationController
     end
   end
 
-  # GET /node_paths/new
-  # GET /node_paths/new.json
   def new
     @node_path = NodePath.new
 
@@ -32,13 +27,10 @@ class NodePathsController < ApplicationController
     end
   end
 
-  # GET /node_paths/1/edit
   def edit
     @node_path = NodePath.find(params[:id])
   end
 
-  # POST /node_paths
-  # POST /node_paths.json
   def create
     @node_path = NodePath.new(params[:node_path])
 
@@ -53,8 +45,6 @@ class NodePathsController < ApplicationController
     end
   end
 
-  # PUT /node_paths/1
-  # PUT /node_paths/1.json
   def update
     @node_path = NodePath.find(params[:id])
 
@@ -69,8 +59,6 @@ class NodePathsController < ApplicationController
     end
   end
 
-  # DELETE /node_paths/1
-  # DELETE /node_paths/1.json
   def destroy
     @node_path = NodePath.find(params[:id])
     @node_path.destroy

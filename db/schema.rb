@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120215203125) do
+ActiveRecord::Schema.define(:version => 20120217163208) do
+
+  create_table "attendees", :force => true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "email"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "borrowers", :force => true do |t|
     t.string   "firstname"
@@ -22,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120215203125) do
     t.date     "dob"
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "verified"
     t.integer  "event_id"
     t.integer  "card_type_id"
     t.datetime "created_at",   :null => false

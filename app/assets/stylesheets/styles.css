@@ -503,7 +503,11 @@ div.col4 {
 
 th {
 	text-align: left;
-	padding-right: 50px;
+	padding-right: 30px;
+}
+
+.checkboxes {
+	padding-left: 50px;
 }
 
 

@@ -1,17 +1,10 @@
-<%= form_for(@attendee) do |f| %>
-  <% if @attendee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@attendee.errors.count, "error") %> prohibited this attendee from being saved:</h2>
-
-      <ul>
-      <% @attendee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= semantic_form_for(@attendee) do |f| %>
+    <%= f.inputs do %>
+	  <%= f.input :firstname, :label => "First Name " %>
+	  <%= f.input :lastname, :label => "Last Name " %>
+	  <%= f.input :email, :label => "Email " %>
+	  <%= f.input :event_id, :as => :hidden, :value => @event.id %>
+	<% end %>
+	
+	<%= f.buttons %>
 <% end %>

@@ -31,8 +31,13 @@
 	<p>
 	  <%= @node.text %><br /><br />
 	  <% unless @node.choices.nil? || @node.choices.empty? %>
-	    Answer: <br/>
+	    Result: <br/>
 	    <%= @node.choices[0].text %>
+		<p>Please enter your information:<br />
+		<% @borrower = Borrower.new %>
+		<% #@event = Event.find(:first, :conditions => {:name => "Privileges"}) %>
+		<%= render 'borrowers/form' %>
+		</p>
 	  <% end %>
 	<p>
   <% end %>

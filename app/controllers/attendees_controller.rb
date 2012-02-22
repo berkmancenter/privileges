@@ -1,17 +1,6 @@
 class AttendeesController < ApplicationController
-  # GET /attendees
-  # GET /attendees.json
-  def index
-    @attendees = Attendee.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @attendees }
-    end
-  end
-
-  # GET /attendees/1
-  # GET /attendees/1.json
+  before_filter :authenticate_user!
+    
   def show
     @attendee = Attendee.find(params[:id])
 
@@ -21,10 +10,9 @@ class AttendeesController < ApplicationController
     end
   end
 
-  # GET /attendees/new
-  # GET /attendees/new.json
   def new
     @attendee = Attendee.new
+    @event = Event.find(params[:event_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,13 +20,11 @@ class AttendeesController < ApplicationController
     end
   end
 
-  # GET /attendees/1/edit
   def edit
     @attendee = Attendee.find(params[:id])
+    @event = @attendee.event
   end
 
-  # POST /attendees
-  # POST /attendees.json
   def create
     @attendee = Attendee.new(params[:attendee])
 
@@ -53,8 +39,6 @@ class AttendeesController < ApplicationController
     end
   end
 
-  # PUT /attendees/1
-  # PUT /attendees/1.json
   def update
     @attendee = Attendee.find(params[:id])
 
@@ -69,8 +53,6 @@ class AttendeesController < ApplicationController
     end
   end
 
-  # DELETE /attendees/1
-  # DELETE /attendees/1.json
   def destroy
     @attendee = Attendee.find(params[:id])
     @attendee.destroy
@@ -79,5 +61,26 @@ class AttendeesController < ApplicationController
       format.html { redirect_to attendees_url }
       format.json { head :no_content }
     end
+  end
+  
+  def import
+    event = params[:event_id]
+    unless params[:upload].blank?
+      @file = params[:upload][:datafile]
+      CSV.parse(@file.read).each do |cell|
+          attendee={}
+          attendee[:event_id] = event
+          attendee[:firstname] = cell[0]
+          attendee[:lastname] = cell[1]
+          attendee[:email] = cell[2]
+        
+          @attendee = Attendee.new
+          @attendee.attributes = attendee
+          @attendee.save
+      end
+      redirect_to event_url(event)
+    else
+      redirect_to event_url(event), notice: 'No File Chosen'
+    end    
   end
 end
