@@ -7,16 +7,21 @@ class NodesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @nodes }
     end
   end
 
   def show
     @node = Node.find(params[:id])
+    
+    #saving user's flow chart choices to include in borrower object
+    unless session[:node_path].nil?
+      session[:node_path] += "," + @node.id.to_s
+    else
+      session[:node_path] = @node.id.to_s  
+    end  
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @node }
     end
   end
 
@@ -25,7 +30,6 @@ class NodesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @node }
     end
   end
 
@@ -39,10 +43,8 @@ class NodesController < ApplicationController
     respond_to do |format|
       if @node.save
         format.html { redirect_to nodes_url, notice: 'Node was successfully created.' }
-        format.json { render json: @node, status: :created, location: @node }
       else
         format.html { render action: "new" }
-        format.json { render json: @node.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -53,10 +55,8 @@ class NodesController < ApplicationController
     respond_to do |format|
       if @node.update_attributes(params[:node])
         format.html { redirect_to @node, notice: 'Node was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @node.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,7 +68,6 @@ class NodesController < ApplicationController
     respond_to do |format|
       flash[:notice] = %Q|Deleted node|
       format.html { redirect_to nodes_url }
-      format.json { head :no_content }
     end
   end
   

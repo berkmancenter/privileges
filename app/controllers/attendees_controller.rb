@@ -6,7 +6,6 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @attendee }
     end
   end
 
@@ -16,7 +15,6 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @attendee }
     end
   end
 
@@ -31,10 +29,8 @@ class AttendeesController < ApplicationController
     respond_to do |format|
       if @attendee.save
         format.html { redirect_to @attendee, notice: 'Attendee was successfully created.' }
-        format.json { render json: @attendee, status: :created, location: @attendee }
       else
         format.html { render action: "new" }
-        format.json { render json: @attendee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -45,10 +41,8 @@ class AttendeesController < ApplicationController
     respond_to do |format|
       if @attendee.update_attributes(params[:attendee])
         format.html { redirect_to @attendee, notice: 'Attendee was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @attendee.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,7 +53,6 @@ class AttendeesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to attendees_url }
-      format.json { head :no_content }
     end
   end
   

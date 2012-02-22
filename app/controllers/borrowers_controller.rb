@@ -60,6 +60,14 @@ class BorrowersController < ApplicationController
     @borrower = Borrower.new(params[:borrower])
     respond_to do |format|
       if @borrower.save
+        node_path = NodePath.new
+        node_path.path = session[:node_path]
+        node_path.borrower_id = @borrower.id
+        node_path.session_id = session[:id]
+        node_path.save
+        #clear node_path session variable
+        session[:node_path] = nil
+        
         if current_user.try(:admin?)
           format.html { redirect_to borrowers_url, notice: 'Borrower was successfully created.' }    
         else
