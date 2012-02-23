@@ -1,0 +1,7 @@
+<% content_for :header do %>Search Results<% end %>
+<div class="search collection-list">
+  <% unless @borrowers.blank? %>
+	<h2>Borrowers</h2>
+	<%= render :partial => 'borrowers/list', :locals => { :borrowers => @borrowers } %>
+  <% end %>
+</div>

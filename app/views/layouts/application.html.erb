@@ -18,6 +18,13 @@
       <% else %>
 		<%= link_to "Sign In", new_user_session_path %>
 	  <% end %>
+	  <% if current_user.try(:admin?) %>
+	    <br /><br />
+	    <%= form_tag search_index_url, :method => 'get' do %>
+	      <%= text_field_tag :search, params[:search] %>
+		  <%= submit_tag "Search", :name => nil %>
+	    <% end %> 
+	  <% end %> 
     </div>
 
     <div id="logo">

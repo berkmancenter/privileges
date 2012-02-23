@@ -1,0 +1,10 @@
+<% content_for :header do %>Confirmation<% end %>
+<p>
+	First Name: <%= @borrower.firstname %><br />
+    <%= @borrower.middlename.blank? ? '' : "Middle Name: #{@borrower.middlename}<br />" %>
+    Last Name: <%= @borrower.lastname %><br />
+    Email: <%= @borrower.email %><br />
+	Phone: <%= @borrower.phone %><br />
+	Date of Birth: <%= @borrower.dob %><br />
+	Borrower Card Type: <%= @borrower.card_type.nil? ? "None" : @borrower.card_type.name %>
+</p>

@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: privileges_development
+  pool: 5
+  username: privileges
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: privileges_test
+  pool: 5
+  username: privileges
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: privileges_production
+  pool: 5
+  username: privileges
+  password:

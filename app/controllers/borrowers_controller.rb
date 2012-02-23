@@ -1,6 +1,6 @@
 require 'csv'
 class BorrowersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:new, :create]
+  before_filter :authenticate_user!, :except => [:new, :create, :confirmation]
 
   def index
     @general_event = Event.find(:first, :conditions => {:name => "Privileges"})
@@ -57,6 +57,9 @@ class BorrowersController < ApplicationController
       params[:borrower][:end_date] = Date.strptime(params[:borrower][:end_date], "%m/%d/%Y")    
     end
     
+    #strip all non numbers out of phone
+    params[:borrower][:phone] = params[:borrower][:phone].gsub(/[^0-9]/, "")
+    
     @borrower = Borrower.new(params[:borrower])
     respond_to do |format|
       if @borrower.save
@@ -71,7 +74,7 @@ class BorrowersController < ApplicationController
         if current_user.try(:admin?)
           format.html { redirect_to borrowers_url, notice: 'Borrower was successfully created.' }    
         else
-          format.html { redirect_to root_url, notice: 'Your information was successfully submitted.' }
+          format.html { redirect_to confirmation_borrowers_url(:id => @borrower.id), notice: 'Your information was successfully submitted.' }
         end
       else
         format.html { render action: "new" }
@@ -83,6 +86,8 @@ class BorrowersController < ApplicationController
     @borrower = Borrower.find(params[:id])
     params[:borrower][:start_date] = Date.strptime(params[:borrower][:start_date], "%m/%d/%Y")
     params[:borrower][:end_date] = Date.strptime(params[:borrower][:end_date], "%m/%d/%Y")
+    #strip all non numbers out of phone
+    params[:borrower][:phone] = params[:borrower][:phone].gsub(/[^0-9]/, "")
     
     respond_to do |format|
       if @borrower.update_attributes(params[:borrower])
@@ -132,4 +137,8 @@ class BorrowersController < ApplicationController
       redirect_to event_url(event), notice: 'No File Chosen'
     end    
   end
+  
+  def confirmation
+    @borrower = Borrower.find(params[:id])
+  end  
 end

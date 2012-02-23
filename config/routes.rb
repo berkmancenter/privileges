@@ -1,4 +1,6 @@
 Privileges::Application.routes.draw do
+  resources :search
+
   resources :attendees do
     collection do
       post 'import'
@@ -12,6 +14,7 @@ Privileges::Application.routes.draw do
   resources :borrowers do
     collection do
       post 'import'
+      get 'confirmation'
     end
   end  
 
