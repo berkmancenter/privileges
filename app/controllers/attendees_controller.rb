@@ -1,3 +1,5 @@
+require 'csv'
+
 class AttendeesController < ApplicationController
   before_filter :authenticate_user!
     

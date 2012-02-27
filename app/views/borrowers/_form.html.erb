@@ -1,8 +1,39 @@
+<% content_for :header do %>
+    <script type="text/javascript" charset="utf-8">
+	  function change_state_select(country_code)
+	 {
+	    jQuery.get('<%= url_for(:controller => "borrowers", :action => "country_select") %>/?id='+country_code,
+	      	function (data) {
+		        jQuery('#state_select').replaceWith(data);
+	    });
+	  }
+	 </script>
+	 <noscript>Please enable Javascript.</noscript>
+<% end %>
+
 <%= semantic_form_for(@borrower) do |f| %>
     <%= f.inputs do %>
 	  <%= f.input :firstname, :label => "First Name " %>
 	  <%= f.input :middlename, :label => "Middle Name " %>
 	  <%= f.input :lastname, :label => "Last Name " %>
+	  <%= f.input :address_1, :label => "Address 1 " %>
+	  <%= f.input :address_2, :label => "Address 2 " %>
+	  <%= f.input :city, :label => "City " %>
+	  
+	  Country<span class="required">*</span><br />
+	  <%= f.select :country, Carmen::country_names, {:include_blank => true}, {:onchange => "change_state_select(this.options[this.selectedIndex].value);"} %>
+	  </p>
+	  <% unless @borrower.state.nil? %>
+		<% begin %>
+		  <%= render :partial => 'states', :locals => {:states => Carmen::states(Carmen::country_code(@borrower.country))} %>
+		<% rescue %>
+		  <% logger.warn "in rescue"%>
+	      <%= render :partial => 'states', :locals => {:states => nil} %>
+		<% end %>
+	  <% else %>
+	    <div id='state_select'>poop</div>
+	  <% end %>
+	  <%= f.input :zip, :label => "Zip Code " %>
 	  <%= f.input :email, :label => "Email " %>
 	  <%= f.input :phone, :label => "Phone " %>
 	  <%= f.input :dob, :label => "Date of Birth ", :start_year => Time.now.year, :end_year => Time.now.year - 100 %>

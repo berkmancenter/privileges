@@ -15,6 +15,7 @@ Privileges::Application.routes.draw do
     collection do
       post 'import'
       get 'confirmation'
+      get 'country_select'
     end
   end  
 

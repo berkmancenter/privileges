@@ -4,6 +4,12 @@ class CreateBorrowers < ActiveRecord::Migration
       t.string :firstname
       t.string :lastname
       t.string :middlename
+      t.string :address_1
+      t.string :address_2
+      t.string :city
+      t.string :state
+      t.string :zip
+      t.string :country
       t.string :email
       t.string :phone
       t.date :dob

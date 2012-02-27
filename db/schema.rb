@@ -26,16 +26,21 @@ ActiveRecord::Schema.define(:version => 20120217163208) do
     t.string   "firstname"
     t.string   "lastname"
     t.string   "middlename"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
     t.string   "email"
     t.string   "phone"
     t.date     "dob"
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "verified"
+    t.boolean  "verified",     :default => false
     t.integer  "event_id"
     t.integer  "card_type_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "borrowers", ["email"], :name => "index_borrowers_on_email"

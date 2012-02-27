@@ -1,4 +1,7 @@
 require 'csv'
+require 'carmen'
+include Carmen
+
 class BorrowersController < ApplicationController
   before_filter :authenticate_user!, :except => [:new, :create, :confirmation]
 
@@ -140,5 +143,15 @@ class BorrowersController < ApplicationController
   
   def confirmation
     @borrower = Borrower.find(params[:id])
-  end  
+  end
+  
+  def country_select
+    begin
+       country = Carmen::country_code(params[:id])
+       @states = Carmen::states(country)
+    rescue
+       @states = nil
+    end
+    render :partial => "states"
+  end
 end

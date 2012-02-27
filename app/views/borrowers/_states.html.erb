@@ -1,0 +1,16 @@
+<p>
+  	<div id="state_select">
+	  State or Territory<br />
+	  <% if !@borrower.nil? && !@borrower.state.nil? %>
+	    <% if states.nil? %>
+		  <%= text_field :applicant, :state %>
+		<% else %>
+		  <%= select :applicant, :state, states %>
+		<% end %>
+	  <% elsif @states.nil? %>
+		<%= text_field :applicant, :state %>	
+	  <% else %>
+	    <%= select :applicant, :state, @states %>
+	  <% end %>
+	</div>
+</p>
