@@ -3,8 +3,17 @@
 	  <%= f.input :firstname, :label => "First Name " %>
 	  <%= f.input :lastname, :label => "Last Name " %>
 	  <%= f.input :email, :label => "Email " %>
+	  <%= f.input :start_date, :as => :string, :label => "Start Date ", :input_html => { :value => @attendee.start_date.strftime("%m/%d/%Y")} %>
+	  <%= f.input :end_date, :as => :string, :label => "End Date ", :input_html => { :value => @attendee.end_date.strftime("%m/%d/%Y")} %>
 	  <%= f.input :event_id, :as => :hidden, :value => @event.id %>
 	<% end %>
 	
 	<%= f.buttons %>
 <% end %>
+
+<script type="text/javascript" language="javascript">
+	jQuery(document).ready(function(){
+		jQuery("#attendee_start_date").datepicker({ minDate: 0 });
+		jQuery("#attendee_end_date").datepicker({ minDate: 0 });
+	})
+</script>

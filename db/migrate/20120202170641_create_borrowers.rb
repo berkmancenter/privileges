@@ -18,11 +18,21 @@ class CreateBorrowers < ActiveRecord::Migration
       t.boolean :verified, :default => false      
       t.references :event
       t.references :card_type
+      t.references :attendee
       t.timestamps
     end
     
     [:firstname, :lastname, :email].each do|col|
       add_index :borrowers, col
+    end
+    
+    create_table(:borrowers_card_types, :id => false) do|t|
+      t.references :borrower
+      t.references :card_type
+    end
+    
+    [:borrower_id, :card_type_id].each do|col|
+      add_index :borrowers_card_types, col
     end
   end
 end

@@ -30,7 +30,7 @@ namespace :privileges do
     
     task :default_event => :environment do
       user = User.find_by_email('admin@example.com')
-      event = Event.new(:user => user, :name => 'Privileges', :start_date => Date.today, :end_date => '2012-12-31')
+      event = Event.new(:name => 'Privileges', :start_date => Date.today, :end_date => '2012-12-31')
       event.save
     end
     

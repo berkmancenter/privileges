@@ -26,8 +26,10 @@ class AttendeesController < ApplicationController
   end
 
   def create
+    params[:attendee][:start_date] = Date.strptime(params[:attendee][:start_date], "%m/%d/%Y")
+    params[:attendee][:end_date] = Date.strptime(params[:attendee][:end_date], "%m/%d/%Y")
     @attendee = Attendee.new(params[:attendee])
-
+    
     respond_to do |format|
       if @attendee.save
         format.html { redirect_to @attendee, notice: 'Attendee was successfully created.' }
@@ -39,10 +41,18 @@ class AttendeesController < ApplicationController
 
   def update
     @attendee = Attendee.find(params[:id])
-
+    params[:attendee][:start_date] = Date.strptime(params[:attendee][:start_date], "%m/%d/%Y")
+    params[:attendee][:end_date] = Date.strptime(params[:attendee][:end_date], "%m/%d/%Y")
+    
     respond_to do |format|
       if @attendee.update_attributes(params[:attendee])
-        format.html { redirect_to @attendee, notice: 'Attendee was successfully updated.' }
+        borrower = Borrower.find(:first, :conditions => {:attendee_id => @attendee.id})
+        unless borrower.nil?
+          borrower.start_date = @attendee.start_date
+          borrower.end_date = @attendee.end_date
+          borrower.save
+        end  
+        format.html { redirect_to Event.find(@attendee.event_id), notice: 'Attendee was successfully updated.' }
       else
         format.html { render action: "edit" }
       end
@@ -59,15 +69,17 @@ class AttendeesController < ApplicationController
   end
   
   def import
-    event = params[:event_id]
+    event = Event.find(params[:event_id])
     unless params[:upload].blank?
       @file = params[:upload][:datafile]
       CSV.parse(@file.read).each do |cell|
           attendee={}
-          attendee[:event_id] = event
+          attendee[:event_id] = event.id
           attendee[:firstname] = cell[0]
           attendee[:lastname] = cell[1]
           attendee[:email] = cell[2]
+          attendee[:start_date] = event.start_date
+          attendee[:end_date] = event.end_date
         
           @attendee = Attendee.new
           @attendee.attributes = attendee

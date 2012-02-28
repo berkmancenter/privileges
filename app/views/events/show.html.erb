@@ -2,15 +2,20 @@
 <p>
   Description: <br />
   <%= @event.description %><br /><br />
-  Event Admin: <%= @event.is_admin?(current_user) ? "You" : @event.user.email %><br />
+  Event Admin(s): <br />
+	<% @event.users.each do |admin| %>
+	  <%= admin.email %><br />
+	<% end %>
+  <br />	
   Start Date: <%= @event.start_date.strftime("%m/%d/%Y") %><br />
-  End Date: <%= @event.end_date.strftime("%m/%d/%Y") %>
+  End Date: <%= @event.end_date.strftime("%m/%d/%Y") %><br />
+  <%= @event.canceled ? "***Event has been canceled." : "" %>
 </p>
 
 <p>
-	<% if current_user.admin? %>
-	  <%= link_to('Edit Event', edit_event_path(@event)) %> | 
-	  <%= link_to 'Destroy Event', @event, confirm: 'Are you sure?', method: :delete %>
+	<%= link_to('Edit Event', edit_event_path(@event)) %>
+	<% if current_user.admin? %> 
+	  | <%= link_to 'Destroy Event', @event, confirm: 'Are you sure?', method: :delete %>
 	<% end %>
 </p>
 
@@ -23,14 +28,16 @@
     <% end %>
 </div>
 
-<h2 class="collapsable borrower_list">Borrowers</h2>
-<div class="borrower_list borrower_list-target">
-	<%= render :partial => "borrowers/list", :locals => { :borrowers => @event.borrowers } %>
-	<br />
-	<% if @event.is_admin?(current_user) || current_user.admin? %>
-	  <%= link_to 'New Borrower', new_borrower_path(:event_id => @event.id) %>
-    <% end %>
-</div>
+<% if current_user.admin? %>
+	<h2 class="collapsable borrower_list">Borrowers</h2>
+	<div class="borrower_list borrower_list-target">
+		<%= render :partial => "borrowers/list", :locals => { :borrowers => @event.borrowers } %>
+		<br />
+		<% if @event.is_admin?(current_user) || current_user.admin? %>
+		  <%= link_to 'New Borrower', new_borrower_path(:event_id => @event.id) %>
+	    <% end %>
+	</div>
+<% end %>
 
 <% if @event.is_admin?(current_user) || current_user.admin? %>
   <h2 class="collapsable attendee_upload">Attendee Upload via CSV</h2>

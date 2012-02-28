@@ -1,4 +1,28 @@
-<p id="notice"><%= notice %></p>
+<% content_for :header do %>Borrower - <%= @borrower.firstname %> <%= @borrower.lastname %><% end %>
+<p>
+	First Name: <%= @borrower.firstname %><br />
+    <%= @borrower.middlename.blank? ? '' : "Middle Name: #{@borrower.middlename}<br />" %>
+    Last Name: <%= @borrower.lastname %><br />
+	Address 1: <%= @borrower.address_1 %><br />
+	<%= @borrower.address_2.blank? ? '' : "Address 2: #{@borrower.address_2}<br />" %>
+	City: <%= @borrower.city %><br />
+	State: <%= @borrower.state %><br />
+	Zip: <%= @borrower.zip %><br />
+	Country: <%= @borrower.country %><br /><br />
+    Email: <%= @borrower.email %><br />
+	Phone: <%= @borrower.phone %><br />
+	Date of Birth: <%= @borrower.dob %>
+</p>
+<p>
+	Event Association: <%= @borrower.event.name %><br />
+	Start Date: <%= @borrower.start_date.strftime("%m/%d/%Y") %><br />
+	End Date: <%= @borrower.end_date.strftime("%m/%d/%Y") %><br /><br />
+	Card Type(s):<br />
+	<% @borrower.card_types.each do |card| %>
+	  <%= card.name %><br />
+	<% end %>
+    <br />
+</p>	
 
 
 <%= link_to 'Edit', edit_borrower_path(@borrower) %> |

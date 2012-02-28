@@ -3,7 +3,7 @@ require 'carmen'
 include Carmen
 
 class BorrowersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:new, :create, :confirmation]
+  before_filter :authenticate_admin!, :except => [:new, :create, :confirmation, :country_select]
 
   def index
     @general_event = Event.find(:first, :conditions => {:name => "Privileges"})
@@ -40,6 +40,7 @@ class BorrowersController < ApplicationController
     if params[:borrower][:event_id].nil?
       attendee = Attendee.find(:first, :conditions => {:email => params[:borrower][:email]})
       unless attendee.nil?
+        params[:borrower][:attendee_id] = attendee.id
         @event = attendee.event
       else
         @event = Event.find(:first, :conditions => {:name => "Privileges"})
@@ -49,13 +50,21 @@ class BorrowersController < ApplicationController
     end  
 
     params[:borrower][:event_id] = @event.id
-    if params[:borrower][:start_date].empty?
-      params[:borrower][:start_date] = @event.start_date
+    if params[:borrower][:start_date].nil?
+      unless attendee.nil?
+        params[:borrower][:start_date] = attendee.start_date
+      else  
+        params[:borrower][:start_date] = @event.start_date
+      end
     else
       params[:borrower][:start_date] = Date.strptime(params[:borrower][:start_date], "%m/%d/%Y")
     end  
-    if params[:borrower][:end_date].empty?
-      params[:borrower][:end_date] = @event.end_date
+    if params[:borrower][:end_date].nil?
+      unless attendee.nil?
+        params[:borrower][:end_date] = attendee.end_date
+      else  
+        params[:borrower][:end_date] = @event.end_date
+      end
     else
       params[:borrower][:end_date] = Date.strptime(params[:borrower][:end_date], "%m/%d/%Y")    
     end
@@ -128,8 +137,6 @@ class BorrowersController < ApplicationController
           borrower[:lastname] = cell[2]
           borrower[:email] = cell[3]
           borrower[:phone] = cell[4]
-          borrower[:start_date] = cell[5]
-          borrower[:end_date] = cell[6]
         
           @borrower = Borrower.new
           @borrower.attributes = borrower

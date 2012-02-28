@@ -5,7 +5,12 @@ class EventsController < ApplicationController
     if current_user.try(:admin?)
       @events = Event.all
     elsif user_signed_in?
-      @events = Event.find(:all, :conditions => {:user_id => current_user.id}) 
+      @events = []
+      Event.all.each do |event|
+        if event.users.include?(current_user)
+          @events << event 
+        end  
+      end  
     end      
 
     respond_to do |format|

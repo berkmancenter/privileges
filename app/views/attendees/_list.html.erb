@@ -3,6 +3,8 @@
     <th>First</th>
     <th>Last</th>
 	<th>Email</th>
+	<th>Start Date</th>
+	<th>End Date</th>
 	<th>Actions</th>
   </tr>
 
@@ -11,6 +13,8 @@
     <td><%= attendee.firstname %></td>
     <td><%= attendee.lastname %></td>
     <td><%= attendee.email %></td>
+	<td><%= attendee.start_date %></td>
+	<td><%= attendee.end_date %></td>
 	<td><%= link_to 'Edit', edit_attendee_path(attendee) %> | <%= link_to 'Destroy', attendee, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

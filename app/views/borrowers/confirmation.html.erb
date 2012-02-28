@@ -3,8 +3,13 @@
 	First Name: <%= @borrower.firstname %><br />
     <%= @borrower.middlename.blank? ? '' : "Middle Name: #{@borrower.middlename}<br />" %>
     Last Name: <%= @borrower.lastname %><br />
+	Address 1: <%= @borrower.address_2 %><br />
+	<%= @borrower.address_2.blank? ? '' : "Address 2: #{@borrower.address_2}<br />" %>
+	City: <%= @borrower.city %><br />
+	State: <%= @borrower.state %><br />
+	Zip: <%= @borrower.zip %><br />
+	Country: <%= @borrower.country %><br /><br />
     Email: <%= @borrower.email %><br />
 	Phone: <%= @borrower.phone %><br />
-	Date of Birth: <%= @borrower.dob %><br />
-	Borrower Card Type: <%= @borrower.card_type.nil? ? "None" : @borrower.card_type.name %>
+	Date of Birth: <%= @borrower.dob %>
 </p>

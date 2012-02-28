@@ -3,7 +3,7 @@ class SearchController < ApplicationController
     
   def index
     @borrowers = Borrower.search(params[:search].downcase)
-    p "borrowers"
-    p @borrowers
+    @attendees = Attendee.search(params[:search].downcase)
+    @events = Event.search(params[:search].downcase)
   end
 end

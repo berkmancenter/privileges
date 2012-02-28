@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Name</th>
+	<th>Start Date</th>
+	<th>End Date</th>
+	<th>Actions</th>
+  </tr>
+
+<% events.each do |event| %>
+  <tr>
+    <td><%= event.name %></td>
+	<td><%= event.start_date %></td>
+	<td><%= event.end_date %></td>
+	<td><%= link_to 'Edit', edit_event_path(event) %> | <%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

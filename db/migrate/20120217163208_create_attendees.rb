@@ -4,6 +4,8 @@ class CreateAttendees < ActiveRecord::Migration
       t.string :firstname
       t.string :lastname
       t.string :email
+      t.date :start_date
+      t.date :end_date
       t.references :event
       t.timestamps
     end

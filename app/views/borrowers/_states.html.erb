@@ -3,14 +3,14 @@
 	  State or Territory<br />
 	  <% if !@borrower.nil? && !@borrower.state.nil? %>
 	    <% if states.nil? %>
-		  <%= text_field :applicant, :state %>
+		  <%= text_field :borrower, :state %>
 		<% else %>
-		  <%= select :applicant, :state, states %>
+		  <%= select :borrower, :state, states %>
 		<% end %>
 	  <% elsif @states.nil? %>
-		<%= text_field :applicant, :state %>	
+		<%= text_field :borrower, :state %>	
 	  <% else %>
-	    <%= select :applicant, :state, @states %>
+	    <%= select :borrower, :state, @states %>
 	  <% end %>
 	</div>
 </p>
