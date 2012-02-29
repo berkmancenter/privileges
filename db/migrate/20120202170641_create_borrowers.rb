@@ -17,8 +17,8 @@ class CreateBorrowers < ActiveRecord::Migration
       t.date :end_date
       t.boolean :verified, :default => false      
       t.references :event
-      t.references :card_type
       t.references :attendee
+      t.text :other
       t.timestamps
     end
     
@@ -33,6 +33,24 @@ class CreateBorrowers < ActiveRecord::Migration
     
     [:borrower_id, :card_type_id].each do|col|
       add_index :borrowers_card_types, col
+    end
+    
+    create_table(:affiliations_borrowers, :id => false) do|t|
+      t.references :borrower
+      t.references :affiliation
+    end
+    
+    [:borrower_id, :affiliation_id].each do|col|
+      add_index :affiliations_borrowers, col
+    end
+    
+    create_table(:borrowers_collections, :id => false) do|t|
+      t.references :borrower
+      t.references :collection
+    end
+    
+    [:borrower_id, :collection_id].each do|col|
+      add_index :borrowers_collections, col
     end
   end
 end

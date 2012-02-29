@@ -1,5 +1,12 @@
 <% content_for :header do %>Borrower - <%= @borrower.firstname %> <%= @borrower.lastname %><% end %>
 <p>
+	<h3>Step 1: Affiliation(s)</h3>
+	<% @borrower.affiliations.each do |aff| %>
+	  <%= aff.name %><br />
+	<% end %>
+</p>	
+<p>
+	<h3>Step 2: Registration Form</h3>
 	First Name: <%= @borrower.firstname %><br />
     <%= @borrower.middlename.blank? ? '' : "Middle Name: #{@borrower.middlename}<br />" %>
     Last Name: <%= @borrower.lastname %><br />
@@ -14,6 +21,17 @@
 	Date of Birth: <%= @borrower.dob %>
 </p>
 <p>
+	<h3>Step 3: Collection(s)</h3>
+	<% @borrower.collections.each do |coll| %>
+	  <%= coll.name %><br />
+	<% end %>
+</p>
+<p>
+	<h3>Step 4: Comments or Questions</h3>
+	<%= @borrower.other %><br />
+</p>
+<p>
+	<h3>Administrative</h3>
 	Event Association: <%= @borrower.event.name %><br />
 	Start Date: <%= @borrower.start_date.strftime("%m/%d/%Y") %><br />
 	End Date: <%= @borrower.end_date.strftime("%m/%d/%Y") %><br /><br />

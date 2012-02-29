@@ -1,4 +1,10 @@
 Privileges::Application.routes.draw do
+  resources :collections
+
+  resources :affiliations
+
+  resources :emails
+
   resources :search
 
   resources :attendees do

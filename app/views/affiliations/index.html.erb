@@ -1,0 +1,24 @@
+<% content_for :header do %>Affiliations<% end %>
+<div class="affiliations collection-list">	
+	<% if @affiliations.nil? || @affiliations.empty? %>
+	  <p>There are no affiliations yet.</p>
+	<% else %>
+      <table>
+	  <tr>
+	    <th>Name</th>
+	    <th>Actions</th>
+	  </tr>
+	    <% @affiliations.each do |affiliation| %>
+		  <tr>
+			<td><%= affiliation.name %></td>
+			<td><%= link_to 'Edit', edit_affiliation_path(affiliation) %> | <%= link_to 'Destroy', affiliation, confirm: 'Are you sure?', method: :delete %></td>
+		  </tr>
+		<% end %>
+	  </table>
+	<% end %>
+  <p>
+  <% if current_user.admin? %>
+	<%= link_to 'New Affiliation', new_affiliation_path %>
+  <% end %>
+  </p>
+</div>

@@ -1,0 +1,24 @@
+<% content_for :header do %>Collections<% end %>
+<div class="collections collection-list">	
+	<% if @collections.nil? || @collections.empty? %>
+	  <p>There are no collections yet.</p>
+	<% else %>
+      <table>
+	  <tr>
+	    <th>Name</th>
+	    <th>Actions</th>
+	  </tr>
+	    <% @collections.each do |collection| %>
+		  <tr>
+			<td><%= collection.name %></td>
+			<td><%= link_to 'Edit', edit_collection_path(collection) %> | <%= link_to 'Destroy', collection, confirm: 'Are you sure?', method: :delete %></td>
+		  </tr>
+		<% end %>
+	  </table>
+	<% end %>
+  <p>
+  <% if current_user.admin? %>
+	<%= link_to 'New Collection', new_collection_path %>
+  <% end %>
+  </p>
+</div>

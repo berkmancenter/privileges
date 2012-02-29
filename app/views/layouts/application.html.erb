@@ -40,10 +40,13 @@
 	   <h3>User Options</h3>
 		<ul>
 			<% if current_user.try(:admin?) %>
-			  <li><%= link_to "View All Nodes", nodes_path %></li>
-			  <li><%= link_to "View All Events", events_path %></li>
-			  <li><%= link_to "View All General Borrowers", borrowers_path %></li>
-			  <li><%= link_to "View All Borrower Card Types", card_types_path %></li>
+			  <li><%= link_to "Nodes", nodes_path %></li>
+			  <li><%= link_to "Events", events_path %></li>
+			  <li><%= link_to "General Borrowers", borrowers_path %></li>
+			  <br />
+			  <li><%= link_to "Borrower Card Types", card_types_path %></li>
+			  <li><%= link_to "Affiliations", affiliations_path %></li>
+			  <li><%= link_to "Collections", collections_path %></li>
 			<% elsif user_signed_in? %>
 			  <li><%= link_to "View Your Events", events_path %></li>
 			<% else %>
