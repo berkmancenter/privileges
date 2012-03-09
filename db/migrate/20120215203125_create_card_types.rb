@@ -4,5 +4,7 @@ class CreateCardTypes < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
+    
+    add_index :card_types, :name
   end
 end

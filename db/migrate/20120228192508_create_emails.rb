@@ -11,5 +11,9 @@ class CreateEmails < ActiveRecord::Migration
       t.boolean :message_sent, :default => false
       t.timestamps
     end
+    
+    [:to, :bcc, :from, :reply_to, :subject, :body, :date_sent].each do|col|
+      add_index :emails, col
+    end
   end
 end

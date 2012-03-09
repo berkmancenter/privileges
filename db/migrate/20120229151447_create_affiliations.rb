@@ -4,5 +4,7 @@ class CreateAffiliations < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
+    
+    add_index :affiliations, :name
   end
 end

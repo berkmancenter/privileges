@@ -4,5 +4,8 @@ class CreateCollections < ActiveRecord::Migration
       t.string :name
       t.timestamps
     end
+    
+    add_index :collections, :name
+    
   end
 end
