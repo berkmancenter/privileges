@@ -50,7 +50,7 @@ class BorrowersController < ApplicationController
     end  
 
     params[:borrower][:event_id] = @event.id
-    if params[:borrower][:start_date].nil?
+    if params[:borrower][:start_date].nil? || params[:borrower][:start_date].blank?
       unless attendee.nil?
         params[:borrower][:start_date] = attendee.start_date
       else  
@@ -59,7 +59,7 @@ class BorrowersController < ApplicationController
     else
       params[:borrower][:start_date] = Date.strptime(params[:borrower][:start_date], "%m/%d/%Y")
     end  
-    if params[:borrower][:end_date].nil?
+    if params[:borrower][:end_date].nil? || params[:borrower][:end_date].blank?
       unless attendee.nil?
         params[:borrower][:end_date] = attendee.end_date
       else  

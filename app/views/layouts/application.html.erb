@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag 'application' %>
   <!--[if IE 6]><%= stylesheet_link_tag 'ie6' %><![endif]-->
   <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
-  <%= javascript_include_tag "application", "jquery", "jquery-1.7.1.min", "jquery-ui-1.8.14.custom.min.js" %>
+  <%= javascript_include_tag "application", "jquery", "jquery-1.7.1.min", "jquery-ui-1.8.14.custom.min.js", 'nicEdit' %>
   <%= csrf_meta_tags %>
   <%= yield :header_tags -%>
 </head>
@@ -50,7 +50,7 @@
 			<% elsif user_signed_in? %>
 			  <li><%= link_to "View Your Events", events_path %></li>
 			<% else %>
-			  <li><%= link_to "Begin Privileges Form", nodes_path %></li>
+			  <li><%= link_to "Privileges Form", nodes_path %></li>
 			<% end %>
 		</ul>
 	</div>

@@ -4,9 +4,15 @@
 	<% @borrower.affiliations.each do |aff| %>
 	  <%= aff.name %><br />
 	<% end %>
+</p>
+<p>
+	<h3>Step 2: Collection(s)</h3>
+	<% @borrower.collections.each do |coll| %>
+	  <%= coll.name %><br />
+	<% end %>
 </p>	
 <p>
-	<h3>Step 2: Registration Form</h3>
+	<h3>Step 3: Registration Form</h3>
 	First Name: <%= @borrower.firstname %><br />
     <%= @borrower.middlename.blank? ? '' : "Middle Name: #{@borrower.middlename}<br />" %>
     Last Name: <%= @borrower.lastname %><br />
@@ -19,12 +25,6 @@
     Email: <%= @borrower.email %><br />
 	Phone: <%= @borrower.phone %><br />
 	Date of Birth: <%= @borrower.dob %>
-</p>
-<p>
-	<h3>Step 3: Collection(s)</h3>
-	<% @borrower.collections.each do |coll| %>
-	  <%= coll.name %><br />
-	<% end %>
 </p>
 <p>
 	<h3>Step 4: Comments or Questions</h3>

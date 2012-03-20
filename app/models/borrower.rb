@@ -5,12 +5,13 @@ class Borrower < ActiveRecord::Base
   has_and_belongs_to_many :collections
   belongs_to :attendee
   
-  validates_presence_of :firstname, :lastname, :email, :phone, :event, :start_date, :end_date, :address_1, :city, :state, :zip, :country
+  validates_presence_of :firstname, :lastname, :email, :phone, :event, :start_date, :end_date, :address_1, :city, :state, :zip, :country, :affiliations, :dob
   validates_uniqueness_of :email, :phone
   
   after_save :post_save_hooks
   
   def post_save_hooks
+    p self.affiliations
     admin = User.find(:first, :conditions => {:admin => true})
     Email.create(
       :from => admin.email,

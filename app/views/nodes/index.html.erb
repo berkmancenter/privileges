@@ -1,4 +1,4 @@
-<% content_for :header do %>Flow Chart<% end %>
+<% content_for :header do %>Privileges<% end %>
 <div class="nodes collection-list">
   <% unless @firsts.blank? %>
 	<% unless @firsts.length == 1 %>
@@ -14,7 +14,17 @@
 	  <% end %>
 	</p>
   <% else %>
-	<h2>No nodes yet.</h2>
+    <% if current_user.try(:admin?) %>
+	  <h2 class="collapsable request-form">Privileges Request Form</h2>
+	  <div class="node_list request-form-target">
+	    <% @borrower = Borrower.new %>
+	    <%= render 'borrowers/form' %>
+	  </div>
+	<% else %>
+	  <h2>Privileges Request Form</h2>
+	  <% @borrower = Borrower.new %>
+	  <%= render 'borrowers/form' %>
+	<% end %>
   <% end %> 
 </div>		
 

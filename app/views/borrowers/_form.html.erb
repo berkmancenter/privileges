@@ -15,8 +15,11 @@
     <%= f.inputs do %>
 	  <h4>Step 1: Please Check Current Affiliation:</h4>
 	  <%= f.input :affiliations, :as => :check_boxes %>
+	 
+	  <h4>Step 2: If applicable, please check off the collections you wish to access:</h4>
+	  <%= f.input :collections, :as => :check_boxes %>
 	
-	  <h4>Step 2: Registration Form:</h4>
+	  <h4>Step 3: Registration Form:</h4>
 	  <%= f.input :firstname, :label => "First Name " %>
 	  <%= f.input :middlename, :label => "Middle Name " %>
 	  <%= f.input :lastname, :label => "Last Name " %>
@@ -43,9 +46,6 @@
 	  <% unless @event.nil? %>
 	    <%= f.input :event_id, :as => :hidden, :value => @event.id %>
 	  <% end %>
-	
-	  <h4>Step 3: If applicable, please check off the collections you wish to access:</h4>
-	  <%= f.input :collections, :as => :check_boxes %>
 	
 	  <h4>Step 4: Any other comments or questions:</h4>
 	  <%= f.input :other, :label => "Other ", :input_html => { :class => 'autogrow', :rows => 8, :cols => 40 } %>

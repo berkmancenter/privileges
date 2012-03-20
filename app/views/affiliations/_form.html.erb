@@ -1,6 +1,14 @@
+<% content_for :header_tags do %>
+  <script type="text/javascript">
+       bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+  </script>
+<% end %>
+
 <%= semantic_form_for(@affiliation) do |f| %>
     <%= f.inputs do %>
 	  <%= f.input :name, :label => "Name " %>
+	  <%= f.input :rank, :label => "Rank " %>
+	  <%= f.input :message, :as => :text, :input_html => { :class => 'autogrow', :rows => 20, :cols => 70 }, :label => "Message sent to Borrower " %>
 	<% end %>
 	
 	<%= f.buttons %>

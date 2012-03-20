@@ -46,8 +46,9 @@ namespace :privileges do
     end
     
     task :default_affiliations => :environment do
-      ["Alumna/us", "Faculty member visiting from another institution", "PhD candidate visiting from another institution", "Published author", "Non-matriculated Extension student", "Domestic partner of current Harvard faculty, staff or student", "MIT Faculty or Student", "Research Assistant", "Event Verification", "Independent Researcher", "Program Participant", "Event Verification", "Center or Organization Affiliate"].each do |aff|
-        affiliation = Affiliation.new(:name => aff)
+      affiliations = {1 => "Research Assistant", 2=> "Smithsonian", 3 => "House Affiliate", 4 => "Clergy", 5 => "Spouse/Domestic partner of current Harvard faculty, staff or student", 6 => "MIT Faculty or Student", 7 => "Program Participant", 8 => "Center or Organization Affiliate", 9 => "Alumna/us", 10 => "Faculty member visiting from another institution", 11 => "PhD candidate visiting from another institution", 12 => "Visiting Librarian", 13 => "Published author", 14 => "Independent Researcher", 15 => "Non-matriculated Extension student"}
+      affiliations.each_key do |aff|
+        affiliation = Affiliation.new(:name => affiliations[aff], :rank => aff)
         affiliation.save
       end 
       puts "Default Affiliations Created!" 

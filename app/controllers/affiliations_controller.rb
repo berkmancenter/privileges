@@ -1,7 +1,7 @@
 class AffiliationsController < ApplicationController
 
   def index
-    @affiliations = Affiliation.all
+    @affiliations = Affiliation.find(:all, :order => :rank)
 
     respond_to do |format|
       format.html # index.html.erb
