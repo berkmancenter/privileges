@@ -11,14 +11,17 @@ class Borrower < ActiveRecord::Base
   after_save :post_save_hooks
   
   def post_save_hooks
-    p self.affiliations
+    rank = Hash.new
+    self.affiliations.collect{|aff| rank[aff.rank] = aff.id}
+    message = Affiliation.find(rank.sort[0][1]).message
     admin = User.find(:first, :conditions => {:admin => true})
+    
     Email.create(
       :from => admin.email,
       :reply_to => admin.email,
       :to => self.email,
       :subject => "Privileges Request",
-      :body => "Your Privileges registration request has been submitted. Thank you."
+      :body => message
     )
       
   end
