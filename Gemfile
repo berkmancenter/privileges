@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -8,7 +8,7 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'devise', '2.0.0'
 gem 'formtastic'
-gem 'carmen'
+gem 'carmen', '0.2.12'
 
 group :development, :test do
   gem 'rspec-rails'
