@@ -4,16 +4,17 @@
 	  <%= f.input :first, :label => " Is this the first question?" %>
 	<% end %>
 	
-    <%= label_tag "Choices" %>
+	<fieldset class="checkboxes">
+    <%= label_tag "Choices:" %><br />
 	<% all_nodes = Node.all(:order => 'id') %>
 	<% unless all_nodes.blank? %>
 	  <% for node in all_nodes %>
 	      <% unless node == @node %>
 		    <%= check_box_tag "node[choice_ids][]", node.id, @node.choices.include?(node) %>
-	        <%= node.text %>
+	        <%= node.text %><br />
 		  <% end %>	
 	  <% end %>
 	<% end %>
-	
+	</fieldset>
 	<%= f.buttons %>
 <% end %>

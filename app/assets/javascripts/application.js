@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require_tree .
 
+//collapsable column headers
 $(function() {
 	$('.collapsable').click(function() {
 		$(this).next().toggle(400);

@@ -1,12 +1,4 @@
 <% content_for :header do %>Welcome<% end %>
 <p>
-	<% if current_user.try(:admin?) %>
-	  <%= link_to "View All Nodes", nodes_path %><br />
-	  <%= link_to "View All Events", events_path %><br />
-	  <%= link_to "View All General Borrowers", events_path %>
-	<% elsif user_signed_in? %>
-	  <%= link_to "View Your Events", events_path %>
-	<% else %>
-	  <%= link_to "Begin Privileges Form", nodes_path %>
-	<% end %>
+	Some welcome text goes here.
 </p>

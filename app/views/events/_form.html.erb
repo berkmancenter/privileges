@@ -2,9 +2,19 @@
     <%= f.inputs do %>
 	  <%= f.input :name, :label => "Event Name " %>
 	  <%= f.input :description, :label => "Event Description ", :input_html => {:rows => 5, :cols => 30} %>
-      <%= f.input :user, :label => "Event Admin " %>
-	  <%= f.input :start_date, :label => "Start Date ", :as => :string, :input_html => { :value => Date.today.strftime("%m/%d/%Y") } %><br />
-	  <%= f.input :end_date, :label => "End Date ", :as => :string %>
+      <%= f.input :users, :as => :check_boxes, :label => "Event Admin " %>
+	  <% if @event.start_date.nil? %>
+	    <%= f.input :start_date, :label => "Start Date ", :as => :string, :input_html => { :value => Date.today.strftime("%m/%d/%Y") } %><br />
+	  <% else %>
+	    <%= f.input :start_date, :label => "Start Date ", :as => :string, :input_html => { :value => @event.start_date.strftime("%m/%d/%Y")} %><br />
+	  <% end %>
+	  <% unless @event.end_date.nil? %>
+	    <%= f.input :end_date, :label => "End Date ", :as => :string, :input_html => { :value => @event.end_date.strftime("%m/%d/%Y")} %>
+	  <% else %>
+	    <%= f.input :end_date, :label => "End Date ", :as => :string %>
+	  <% end %>
+	  <br />
+	  <%= f.input :canceled, :label => " Has this event been canceled?" %>
 	<% end %>
 	
 	<%= f.buttons %>

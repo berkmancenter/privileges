@@ -3,36 +3,72 @@
   <% if @node.is_question? %>
   	<p>
 	  <%= @node.text %>
+	  <% if current_user.try(:admin?) %>
+	    <%= link_to('Edit', edit_node_path(@node)) %>
+	  <% end %>	
 	  <ul>
 	    <% @node.choices.each do |choice| %>
 		  <% unless choice.choices.nil? %>	
-		    <li><%= link_to choice.text, choice %></li>
+		    <li>
+				<%= link_to choice.text, choice %>
+				<% if current_user.try(:admin?) %>
+				  <%= link_to('Edit', edit_node_path(choice)) %>
+				<% end %>
+			</li>
 		  <% else %>
-	        <li><%= choice.text %></li>
+	        <li>
+				<%= choice.text %>
+				<% if current_user.try(:admin?) %>
+				  <%= link_to('Edit', edit_node_path(choice)) %>
+				<% end %>
+			</li>
 	      <% end %>
 	    <% end %>
 	  </ul>
 	</p>
   <% elsif @node.is_choice? && !@node.choices[0].choices.blank? %>
     <p>
-	  <%= @node.text %><br /><br />
+	  <%= @node.text %>
+	  	<% if current_user.try(:admin?) %>
+		  <%= link_to('Edit', edit_node_path(@node)) %>
+		<% end %>
+	  <br /><br />
 	  <%= @node.choices[0].text %>
+	  	<% if current_user.try(:admin?) %>
+		  <%= link_to('Edit', edit_node_path(@node.choices[0])) %>
+		<% end %>
 	  <ul>
 	    <% @node.choices[0].choices.each do |choice| %>
 		  <% unless choice.choices.nil? %>	
-		    <li><%= link_to choice.text, choice %></li>
+		    <li>
+				<%= link_to choice.text, choice %>
+				<% if current_user.try(:admin?) %>
+				  <%= link_to('Edit', edit_node_path(choice)) %>
+				<% end %>
+			</li>
 		  <% else %>
-	        <li><%= choice.text %></li>
+	        <li>
+				<%= choice.text %>
+				<% if current_user.try(:admin?) %>
+				  <%= link_to('Edit', edit_node_path(choice)) %>
+				<% end %>
+			</li>
 	      <% end %>
 	    <% end %>
 	  </ul>
 	</p>	
   <% else %>
 	<p>
-	  <%= @node.text %><br /><br />
 	  <% unless @node.choices.nil? || @node.choices.empty? %>
-	    Answer: <br/>
+	    Result: <br/>
 	    <%= @node.choices[0].text %>
+		<% if current_user.try(:admin?) %>
+		  <%= link_to('Edit', edit_node_path(@node.choices[0])) %>
+		<% end %>
+		<h2>Privileges Request</h2>
+		<% @borrower = Borrower.new %>
+		<%= render 'borrowers/form' %>
+		</p>
 	  <% end %>
 	<p>
   <% end %>

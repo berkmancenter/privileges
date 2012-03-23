@@ -8,6 +8,7 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'devise', '2.0.0'
 gem 'formtastic'
+gem 'carmen'
 
 group :development, :test do
   gem 'rspec-rails'

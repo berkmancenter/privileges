@@ -1,0 +1,17 @@
+<% content_for :header do %>Search Results<% end %>
+<div class="search collection-list">
+  <% unless @borrowers.blank? %>
+	<h2>Borrowers</h2>
+	<%= render :partial => 'borrowers/list', :locals => { :borrowers => @borrowers } %>
+  <% end %>
+
+  <% unless @events.blank? %>
+	<h2>Events</h2>
+	<%= render :partial => 'events/list', :locals => { :events => @events } %>
+  <% end %>
+
+  <% unless @attendees.blank? %>
+	<h2>Attendees</h2>
+	<%= render :partial => 'attendees/list', :locals => { :attendees => @attendees } %>
+  <% end %>
+</div>

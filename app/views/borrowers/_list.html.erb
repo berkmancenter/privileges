@@ -4,7 +4,9 @@
     <th>Middle</th>
     <th>Last</th>
 	<th>Email</th>
-	<th>Card Type</th>
+	<th>Phone</th>
+	<th>Date of Birth</th>
+	<th>Verified</th>
 	<th>Actions</th>
   </tr>
 
@@ -14,8 +16,10 @@
     <td><%= borrower.middlename %></td>
     <td><%= borrower.lastname %></td>
     <td><%= borrower.email %></td>
-	<td><%= borrower.card_type_id %></td>
-	<td><%= link_to 'Edit', edit_borrower_path(borrower) %> | <%= link_to 'Destroy', borrower, confirm: 'Are you sure?', method: :delete %></td>
+	<td><%= borrower.phone %></td>
+	<td><%= borrower.dob %></td>
+	<td><%= borrower.verified ? "Yes" : "No" %></td>
+	<td><%= link_to 'View', borrower_path(borrower) %> | <%= link_to 'Edit', edit_borrower_path(borrower) %> | <%= link_to 'Destroy', borrower, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

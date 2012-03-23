@@ -1,0 +1,32 @@
+<% content_for :header do %>Confirmation<% end %>
+<p>
+	<h3>Step 1: Affiliation(s)</h3>
+	<% @borrower.affiliations.each do |aff| %>
+	  <%= aff.name %><br />
+	<% end %>
+</p>
+<p>
+	<h3>Step 2: Collection(s)</h3>
+	<% @borrower.collections.each do |coll| %>
+	  <%= coll.name %><br />
+	<% end %>
+</p>
+<p>
+	<h3>Step 3: Registration Form</h3>
+	First Name: <%= @borrower.firstname %><br />
+    <%= @borrower.middlename.blank? ? '' : "Middle Name: #{@borrower.middlename}<br />" %>
+    Last Name: <%= @borrower.lastname %><br />
+	Address 1: <%= @borrower.address_1 %><br />
+	<%= @borrower.address_2.blank? ? '' : "Address 2: #{@borrower.address_2}<br />" %>
+	City: <%= @borrower.city %><br />
+	State: <%= @borrower.state %><br />
+	Zip: <%= @borrower.zip %><br />
+	Country: <%= @borrower.country %><br /><br />
+    Email: <%= @borrower.email %><br />
+	Phone: <%= @borrower.phone %><br />
+	Date of Birth: <%= @borrower.dob %>
+</p>
+<p>
+	<h3>Step 4: Comments or Questions</h3>
+	<%= @borrower.other %><br />
+</p>

@@ -2,48 +2,63 @@
 <p>
   Description: <br />
   <%= @event.description %><br /><br />
-  Event Admin: <%= @event.is_admin?(current_user) ? "You" : @event.user.email %><br />
+  Event Admin(s): <br />
+	<% @event.users.each do |admin| %>
+	  <%= admin.email %><br />
+	<% end %>
+  <br />	
   Start Date: <%= @event.start_date.strftime("%m/%d/%Y") %><br />
-  End Date: <%= @event.end_date.strftime("%m/%d/%Y") %>
+  End Date: <%= @event.end_date.strftime("%m/%d/%Y") %><br />
+  <%= @event.canceled ? "***Event has been canceled." : "" %>
 </p>
 
 <p>
-	<% if current_user.admin? %>
-	  <%= link_to('Edit Event', edit_event_path(@event)) %> | 
-	  <%= link_to 'Destroy Event', @event, confirm: 'Are you sure?', method: :delete %>
+	<%= link_to('Edit Event', edit_event_path(@event)) %>
+	<% if current_user.admin? %> 
+	  | <%= link_to 'Destroy Event', @event, confirm: 'Are you sure?', method: :delete %>
 	<% end %>
 </p>
 
-<h2 class="collapsable borrower_list">Borrowers</h2>
-<div class="borrower_list borrower_list-target">
-	<%= render :partial => "borrowers/list", :locals => { :borrowers => @event.borrowers } %>
+<h2 class="collapsable attendee_list">Attendees</h2>
+<div class="attendee_list attendee_list-target">
+	<%= render :partial => "attendees/list", :locals => { :attendees => @event.attendees } %>
 	<br />
 	<% if @event.is_admin?(current_user) || current_user.admin? %>
-	  <%= link_to 'New Borrower', new_borrower_path(:event_id => @event.id) %>
+	  <%= link_to 'New Attendee', new_attendee_path(:event_id => @event.id) %>
     <% end %>
-</div>		
+</div>
+
+<% if current_user.admin? %>
+	<h2 class="collapsable borrower_list">Borrowers</h2>
+	<div class="borrower_list borrower_list-target">
+		<%= render :partial => "borrowers/list", :locals => { :borrowers => @event.borrowers } %>
+		<br />
+		<% if @event.is_admin?(current_user) || current_user.admin? %>
+		  <%= link_to 'New Borrower', new_borrower_path(:event_id => @event.id) %>
+	    <% end %>
+	</div>
+<% end %>
 
 <% if @event.is_admin?(current_user) || current_user.admin? %>
-  <h2 class="collapsable borrower_upload">Borrower Upload via CSV</h2>
-  <div class="borrower_upload borrower_upload-target">
+  <h2 class="collapsable attendee_upload">Attendee Upload via CSV</h2>
+  <div class="attendee_upload attendee_upload-target">
     <p>
-      Use the form below to import borrowers via a CSV (comma separated value) file. All 4 fields (columns in excel) must be present even if they are left blank.
+      Use the form below to import attendees via a CSV (comma separated value) file. All 5 fields (columns in excel) must be present even if they are left blank.
       Do not use column headings or quotes around text in any field. Each row will be separated by a new line or carriage return.
     </p>
     <p>
       These are the fields to be populated:
 	  <ul>
 		<li>firstname</li>
-		<li>middlename</li>
 		<li>lastname</li>
 		<li>email</li>
 	  </ul>
     </p>
     <p>
-	  e.g. firstname, middlename, lastname, email
+	  e.g. firstname, lastname, email
     </p>
 
-    <%= form_tag import_borrowers_path, :multipart => true do -%>
+    <%= form_tag import_attendees_path, :multipart => true do -%>
       <%= file_field 'upload', 'datafile' %></p>
 	  <%= hidden_field_tag :event_id, @event.id %>
 	  <%= submit_tag "Upload CSV", :disable_with => 'Uploading...' %>

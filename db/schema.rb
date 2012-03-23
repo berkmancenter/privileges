@@ -11,24 +11,83 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120215203125) do
+ActiveRecord::Schema.define(:version => 20120229152427) do
+
+  create_table "affiliations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "affiliations_borrowers", :id => false, :force => true do |t|
+    t.integer "borrower_id"
+    t.integer "affiliation_id"
+  end
+
+  add_index "affiliations_borrowers", ["affiliation_id"], :name => "index_affiliations_borrowers_on_affiliation_id"
+  add_index "affiliations_borrowers", ["borrower_id"], :name => "index_affiliations_borrowers_on_borrower_id"
+
+  create_table "attendees", :force => true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "email"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "borrowers", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
     t.string   "middlename"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
     t.string   "email"
+    t.string   "phone"
+    t.date     "dob"
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "verified",    :default => false
     t.integer  "event_id"
-    t.integer  "card_type_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "attendee_id"
+    t.text     "other"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "borrowers", ["email"], :name => "index_borrowers_on_email"
   add_index "borrowers", ["firstname"], :name => "index_borrowers_on_firstname"
   add_index "borrowers", ["lastname"], :name => "index_borrowers_on_lastname"
+
+  create_table "borrowers_affiliations", :id => false, :force => true do |t|
+    t.integer "borrower_id"
+    t.integer "affiliation_id"
+  end
+
+  add_index "borrowers_affiliations", ["affiliation_id"], :name => "index_borrowers_affiliations_on_affiliation_id"
+  add_index "borrowers_affiliations", ["borrower_id"], :name => "index_borrowers_affiliations_on_borrower_id"
+
+  create_table "borrowers_card_types", :id => false, :force => true do |t|
+    t.integer "borrower_id"
+    t.integer "card_type_id"
+  end
+
+  add_index "borrowers_card_types", ["borrower_id"], :name => "index_borrowers_card_types_on_borrower_id"
+  add_index "borrowers_card_types", ["card_type_id"], :name => "index_borrowers_card_types_on_card_type_id"
+
+  create_table "borrowers_collections", :id => false, :force => true do |t|
+    t.integer "borrower_id"
+    t.integer "collection_id"
+  end
+
+  add_index "borrowers_collections", ["borrower_id"], :name => "index_borrowers_collections_on_borrower_id"
+  add_index "borrowers_collections", ["collection_id"], :name => "index_borrowers_collections_on_collection_id"
 
   create_table "card_types", :force => true do |t|
     t.string   "name"
@@ -41,18 +100,46 @@ ActiveRecord::Schema.define(:version => 20120215203125) do
     t.integer "node_id"
   end
 
+  create_table "collections", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "emails", :force => true do |t|
+    t.string   "to"
+    t.string   "bcc"
+    t.string   "from"
+    t.string   "reply_to"
+    t.string   "subject"
+    t.text     "body"
+    t.date     "date_sent"
+    t.boolean  "message_sent", :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
     t.text     "description"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "canceled",    :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "events", ["name"], :name => "index_events_on_name"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
+
+  create_table "events_users", :id => false, :force => true do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+  end
+
+  add_index "events_users", ["event_id"], :name => "index_events_users_on_event_id"
+  add_index "events_users", ["user_id"], :name => "index_events_users_on_user_id"
 
   create_table "node_paths", :force => true do |t|
     t.text     "path"

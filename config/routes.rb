@@ -1,4 +1,18 @@
 Privileges::Application.routes.draw do
+  resources :collections
+
+  resources :affiliations
+
+  resources :emails
+
+  resources :search
+
+  resources :attendees do
+    collection do
+      post 'import'
+    end
+  end  
+
   resources :card_types
 
   resources :node_paths
@@ -6,12 +20,18 @@ Privileges::Application.routes.draw do
   resources :borrowers do
     collection do
       post 'import'
+      get 'confirmation'
+      get 'country_select'
     end
   end  
 
   resources :events
 
-  resources :nodes
+  resources :nodes do
+    collection do
+      post 'import'
+    end
+  end
 
   devise_for :users
 

@@ -1,16 +1,75 @@
+<% content_for :header_tags do %>
+    <script type="text/javascript" charset="utf-8">
+	  function change_state_select(country_code)
+	 {
+	    jQuery.get('<%= url_for(:controller => "borrowers", :action => "country_select") %>?id='+country_code,
+	      	function (data) {
+		        jQuery('#state_select').replaceWith(data);
+	    });
+	  }
+	 </script>
+	 <noscript>Please enable Javascript.</noscript>
+<% end %>
+
 <%= semantic_form_for(@borrower) do |f| %>
     <%= f.inputs do %>
+	  <h4>Step 1: Please Check Current Affiliation:</h4>
+	  <%= f.input :affiliations, :as => :check_boxes %>
+	 
+	  <h4>Step 2: If applicable, please check off the collections you wish to access:</h4>
+	  <%= f.input :collections, :as => :check_boxes %>
+	
+	  <h4>Step 3: Registration Form:</h4>
 	  <%= f.input :firstname, :label => "First Name " %>
 	  <%= f.input :middlename, :label => "Middle Name " %>
 	  <%= f.input :lastname, :label => "Last Name " %>
+	  <%= f.input :address_1, :label => "Address 1 " %>
+	  <%= f.input :address_2, :label => "Address 2 " %>
+	  <%= f.input :city, :label => "City " %>
+	  
+	  Country<span class="required">*</span><br />
+	  <%= f.select :country, Carmen::country_names, {:include_blank => true}, {:onchange => "change_state_select(this.options[this.selectedIndex].value);"} %>
+	  </p>
+	  <% unless @borrower.state.nil? %>
+		<% begin %>
+		  <%= render :partial => 'states', :locals => {:states => Carmen::states(Carmen::country_code(@borrower.country))} %>
+		<% rescue %>
+	      <%= render :partial => 'states', :locals => {:states => nil} %>
+		<% end %>
+	  <% else %>
+	    <div id='state_select'></div>
+	  <% end %>
+	  <%= f.input :zip, :label => "Zip Code " %>
 	  <%= f.input :email, :label => "Email " %>
-	  <%= f.input :start_date, :label => "Start Date ", :as => :string, :value => @borrower.start_date %><br />
-	  <%= f.input :end_date, :label => "End Date ", :as => :string, :value => @borrower.end_date %>
-	  <%= f.input :event_id, :as => :hidden, :value => @event.id %>
-	  <%= f.input :card_type, :label => "Card Type " %>
-	<% end %>
+	  <%= f.input :phone, :label => "Phone " %>
+	  <%= f.input :dob, :label => "Date of Birth ", :start_year => Time.now.year, :end_year => Time.now.year - 100 %>
+	  <% unless @event.nil? %>
+	    <%= f.input :event_id, :as => :hidden, :value => @event.id %>
+	  <% end %>
 	
-	<%= f.buttons %>
+	  <h4>Step 4: Any other comments or questions:</h4>
+	  <%= f.input :other, :label => "Other ", :input_html => { :class => 'autogrow', :rows => 8, :cols => 40 } %>
+	
+	  <% if current_user.try(:admin?) %>
+	    <h4>Administrative</h4>
+	    <% unless @borrower.start_date.nil? %>
+	      <%= f.input :start_date, :label => "Start Date ", :as => :string, :input_html => { :value => @borrower.start_date.strftime("%m/%d/%Y")} %>
+		<% else %>
+		  <%= f.input :start_date, :label => "Start Date ", :as => :string %>
+		<% end %>
+		<% unless @borrower.end_date.nil? %>
+	      <%= f.input :end_date, :label => "End Date ", :as => :string, :input_html => { :value => @borrower.end_date.strftime("%m/%d/%Y")} %>
+		<% else %>
+		  <%= f.input :end_date, :label => "End Date ", :as => :string %>
+		<% end %>
+		
+	    <%= f.input :card_types, :as => :check_boxes, :label => "Card Type " %>
+		<%= f.input :verified, :label => " This borrower has been verified." %>
+	  <% end %>
+	<% end %>
+	<%= f.buttons do %>
+	  <%= f.commit_button :label => "Submit Form" %>
+	<% end %>
 <% end %>
 
 

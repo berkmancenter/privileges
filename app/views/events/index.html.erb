@@ -1,10 +1,10 @@
 <% content_for :header do %>Events<% end %>
 
-<div class="nodes collection-list">	
+<div class="events collection-list">	
   <% unless @events.blank? %>
 	<p>
 	  <% @events.each do |event| %>
-	    <%= event.name %>
+	    <%= event.name %> <%= event.canceled ? "(CANCELED)" : "" %>
 		<%= link_to('View', event_path(event)) %>
 		<% if current_user.try(:admin?) %>
 		  <%= link_to('Edit', edit_event_path(event)) %>
@@ -18,8 +18,6 @@
   <% end %>
 
   <p>
-  <% if current_user.admin? %>
 	<%= link_to('New Event', new_event_path) %>
-  <% end %>
   </p>
 </div>
