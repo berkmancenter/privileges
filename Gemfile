@@ -6,9 +6,10 @@ gem 'rails', '3.2.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'devise', '2.0.0'
+gem 'devise'
 gem 'formtastic'
 gem 'carmen', '0.2.12'
+gem 'therubyracer'
 
 group :development, :test do
   gem 'rspec-rails'
