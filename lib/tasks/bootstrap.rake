@@ -48,7 +48,7 @@ namespace :privileges do
     task :default_affiliations => :environment do
       affiliations = {1 => "Research Assistant", 2=> "Smithsonian", 3 => "House Affiliate", 4 => "Clergy", 5 => "Spouse/Domestic partner of current Harvard faculty, staff or student", 6 => "MIT Faculty or Student", 7 => "Program Participant", 8 => "Center or Organization Affiliate", 9 => "Alumna/us", 10 => "Faculty member visiting from another institution", 11 => "PhD candidate visiting from another institution", 12 => "Visiting Librarian", 13 => "Published author", 14 => "Independent Researcher", 15 => "Non-matriculated Extension student"}
       affiliations.each_key do |aff|
-        affiliation = Affiliation.new(:name => affiliations[aff], :rank => aff)
+        affiliation = Affiliation.new(:name => affiliations[aff], :rank => aff, :message => 'Thank you for registering for library privileges.')
         affiliation.save
       end 
       puts "Default Affiliations Created!" 
