@@ -10,7 +10,7 @@ class CreateAttendees < ActiveRecord::Migration
       t.timestamps
     end
     
-    [:firstname, :lastname, :email, :start_date, :end_date, :event].each do|col|
+    [:firstname, :lastname, :email, :start_date, :end_date].each do|col|
       add_index :attendees, col
     end
   end
