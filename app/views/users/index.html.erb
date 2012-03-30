@@ -1,0 +1,22 @@
+<% content_for :header do %>Users<% end %>
+<div class="users collection-list">	
+	<% if @users.nil? || @users.empty? %>
+	  <p>There are no users yet.</p>
+	<% else %>
+      <table>
+	  <tr>
+	    <th>Email</th>
+	    <th>Is Admin?</th>
+	    <th>Actions</th>
+	  </tr>
+	    <% @users.each do |user| %>
+		  <tr>
+			<td><%= user.email %></td>
+			<td><%= user.admin ? "Yes" : "No" %></td>
+			<td><%= link_to 'Edit', edit_user_path(user) %> | <%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+		  </tr>
+		<% end %>
+	  </table>
+	<% end %>
+
+</div>

@@ -1,0 +1,16 @@
+<h2>Edit User</h2>
+
+<%= form_for(@user) do |f| %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+  <br />
+  <% if current_user.admin? %>
+    <div><%= f.label :admin, "Is this person an admin?" %> <br />
+    <%= f.check_box :admin %></div>
+  <% end %>
+  <br />
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+<%= link_to "Back", :back %>
